@@ -10,13 +10,6 @@ services:
      user: "104"
      ports:
        - "8857:3000"
-     # environment:
-     #   - GF_SECURITY_ADMIN_PASSWORD=admin
-     #   - GF_SECURITY_ADMIN_USER=admin
-     #   - GF_AUTH_ANONYMOUS_ENABLED=true
-     #   - GF_USERS_ALLOW_SIGN_UP=false
-     #   - GF_USERS_ALLOW_ORG_CREATE=false
-     #   - GF_INSTALL_PLUGINS=briangann-datatable-panel
      volumes:
        - ./Grafana/sources/grafana-home:/var/lib/grafana/
        - ./Grafana/sources/grafana-conf:/etc/grafana/
@@ -26,14 +19,10 @@ services:
      build: ./InfluxDB/
      container_name: influxdb
      volumes:
-#       - ./influxdb:/var/lib/influxdb
        - ./InfluxDB/sources/data:/var/lib/influxdb/ 
        - ./InfluxDB/sources/config/:/etc/influxdb/ 
      ports:
         - "8086:8086"
-#       - "8653:8086"
-#     expose:
-#        - 8653
      restart: always
   Jenkins:
     image: jenkins/jenkins
@@ -42,22 +31,12 @@ services:
     container_name: myjenkins
     ports:
        - "8181:8080"
-       - "50000:50000"
-#    environment:
-      # JENKINS_URL_CONFIG variable is used to set jenkins_url variable in jenkins global configuration.
-      # This url will be used to create links to jenkins builds in grafana dashboards, default is http://127.0.0.1:8181/
-      # Slash '/' should be escaped with '\' 
-      # - JENKINS_URL_CONFIG=http:\/\/127.0.0.1:8181\/
-      # JENKINS_GRAFANA_URL is used for generating link to grafana report in jenkins job description
-      # default value is 127.0.0.1:8857
-      # - JENKINS_GRAFANA_URL=127.0.0.1:8857
-#      - JENKINS_ADMIN_LOGIN=admin
-#      - JENKINS_ADMIN_PASSWORD=admin   
+       - "50000:50000"   
     volumes: 
-      - ./var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock
       - ./Jenkins/sources/jenkins_home:/var/jenkins_home
 #      - ./Jenkins/sources/docker-dind:/usr/local/bin/dind/
-      restart: always
+    restart: always
 volumes:
     grafana-home:
     grafana-conf:
