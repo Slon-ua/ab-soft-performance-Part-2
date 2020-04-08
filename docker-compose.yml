@@ -18,17 +18,17 @@ services:
      #   - GF_USERS_ALLOW_ORG_CREATE=false
      #   - GF_INSTALL_PLUGINS=briangann-datatable-panel
      volumes:
-       - /Grafana/sources/grafana-home:/var/lib/grafana/
-       - /Grafana/sources/grafana-conf:/etc/grafana/
+       - ./Grafana/sources/grafana-home:/var/lib/grafana/
+       - ./Grafana/sources/grafana-conf:/etc/grafana/
      restart: always 
   influxdb:
      image: influxdb
      build: ./InfluxDB/
      container_name: influxdb
      volumes:
-#       - influxdb:/var/lib/influxdb
-       - /InfluxDB/sources/data:/var/lib/influxdb/ 
-       - /InfluxDB/sources/config/:/etc/influxdb/ 
+#       - ./influxdb:/var/lib/influxdb
+       - ./InfluxDB/sources/data:/var/lib/influxdb/ 
+       - ./InfluxDB/sources/config/:/etc/influxdb/ 
      ports:
         - "8086:8086"
 #       - "8653:8086"
@@ -54,9 +54,9 @@ services:
 #      - JENKINS_ADMIN_LOGIN=admin
 #      - JENKINS_ADMIN_PASSWORD=admin   
     volumes: 
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /Jenkins/sources/jenkins_home:/var/jenkins_home
-#      - ~/Jenkins/sources/docker-dind:/usr/local/bin/dind/
+      - ./var/run/docker.sock:/var/run/docker.sock
+      - ./Jenkins/sources/jenkins_home:/var/jenkins_home
+#      - ./Jenkins/sources/docker-dind:/usr/local/bin/dind/
 volumes:
     grafana-home:
     grafana-conf:
