@@ -1,0 +1,49 @@
+//# инструкция https://www.youtube.com/watch?v=PfsNHGy9EsE
+
+docker run -d \
+--name="influxdb" \
+--restart on-failure \
+-p 8086:8086 \
+-v ~/influxdb/data:/var/lib/influxdb \
+-v ~/influxdb/config/:/etc/influxdb/ \
+influxdb -config /etc/influxdb/influxdb.conf
+
+
+docker run -d \
+--name="influxdb" \
+-p 8086:8086 \
+-v ~/influxdb/data:/var/lib/influxdb \
+-v ~/influxdb/config/:/etc/influxdb/ \
+influxdb:latest
+
+
+sudo docker exec -it influxdb /bin/bash
+
+#####
+
+influx
+
+CREATE DATABASE monitoring
+
+
+CREATE USER <username> WITH PASSWORD '<password>'
+
+> CREATE USER READER WITH PASSWORD '123' WITH READ
+> CREATE USER WRITER WITH PASSWORD '123' WITH WRITE
+> CREATE USER ADMIN WITH PASSWORD '123' WITH ALL PRIVILEGES
+
+
+> SHOW USERS
+
+GRANT [READ,WRITE,ALL] ON <database_name> TO <username>
+
+> GRANT READ ON "monitoring" TO "READER"
+> GRANT WRITE ON "monitoring" TO "WRITER"
+> GRANT ALL ON "monitoring" TO "ADMIN"
+
+SHOW GRANTS FOR <user_name>
+
+
+
+
+
