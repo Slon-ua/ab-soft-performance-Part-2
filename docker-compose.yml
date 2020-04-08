@@ -57,6 +57,7 @@ services:
       - ./var/run/docker.sock:/var/run/docker.sock
       - ./Jenkins/sources/jenkins_home:/var/jenkins_home
 #      - ./Jenkins/sources/docker-dind:/usr/local/bin/dind/
+      restart: always
 volumes:
     grafana-home:
     grafana-conf:
