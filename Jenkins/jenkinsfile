@@ -1,0 +1,20 @@
+node {
+
+    stage("checkout repo"){
+        git branch: 'master',
+        credentials: '',
+        url: 'https://github.com/Slon-ua/ab-soft-performance-Part-2.git'
+    }
+
+    stage('Create') {
+       docker run hello-world
+    }
+
+    stage('Inspect') {
+       docker image inspect hello-world 
+    }
+
+    stage('Shutdown') {
+       docker rmi -f hello-world
+    }
+}
